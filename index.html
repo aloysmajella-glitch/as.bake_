@@ -232,15 +232,17 @@
             justify-content: center;
         }
 
-        /* Custom SVG Graphic for Hero to prevent broken images */
-        .hero-image svg {
+        .hero-image img {
             width: 100%;
-            max-width: 400px;
-            filter: drop-shadow(15px 15px 0px var(--accent-green));
+            max-width: 450px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 15px 15px 0px var(--accent-green);
             transition: transform 0.5s ease;
+            object-fit: cover;
+            aspect-ratio: 1/1;
         }
 
-        .hero-image svg:hover {
+        .hero-image img:hover {
             transform: scale(1.02) rotate(-2deg);
         }
 
@@ -273,19 +275,10 @@
             transform: translateY(-10px);
         }
 
-        .menu-card-img-container {
+        .menu-card img {
             width: 100%;
             height: 220px;
-            background-color: var(--accent-green);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .menu-card-img-container svg {
-            width: 80px;
-            height: 80px;
-            fill: var(--white);
+            object-fit: cover;
         }
 
         .menu-card-content {
@@ -426,23 +419,18 @@
             overflow: hidden;
             aspect-ratio: 1 / 1;
             cursor: pointer;
-            background-color: var(--accent-green);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--accent-green); /* Fallback color */
         }
 
-        .gallery-item svg {
-            width: 50%;
-            height: 50%;
-            fill: var(--white);
-            opacity: 0.5;
-            transition: transform 0.5s ease, opacity 0.3s;
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .gallery-item:hover svg {
-            transform: scale(1.2) rotate(10deg);
-            opacity: 0.8;
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
 
         .gallery-overlay {
@@ -521,8 +509,9 @@
                 margin: 0 auto 1.5rem auto;
             }
 
-            .hero-image svg {
-                max-width: 250px; /* Smaller graphic on mobile */
+            .hero-image img {
+                max-width: 300px;
+                box-shadow: 10px 10px 0px var(--accent-green);
             }
 
             .menu-grid, .gallery-grid {
@@ -580,16 +569,8 @@
                 <button class="btn-order" onclick="navigateTo('menu')">Explore Menu</button>
             </div>
             <div class="hero-image">
-                <!-- Custom Vector Graphic replacing the broken image -->
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="48" fill="#fdfbf7" stroke="#a3b18a" stroke-width="2"/>
-                    <circle cx="50" cy="50" r="40" fill="#eaddcd" />
-                    <circle cx="35" cy="40" r="5" fill="#4a2c2a" />
-                    <circle cx="65" cy="40" r="5" fill="#4a2c2a" />
-                    <circle cx="50" cy="65" r="5" fill="#4a2c2a" />
-                    <circle cx="40" cy="55" r="4" fill="#4a2c2a" />
-                    <circle cx="60" cy="55" r="4" fill="#4a2c2a" />
-                </svg>
+                <!-- Restored Original Image -->
+                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=800&auto=format&fit=crop" alt="Artisan Cookies" onerror="this.src='https://placehold.co/600x600/eaddcd/4a2c2a?text=Artisan+Bakes'">
             </div>
         </div>
     </section>
@@ -600,10 +581,8 @@
         <div class="menu-grid">
             <!-- Item 1 -->
             <div class="menu-card" onclick="openModal('Dubai Chewy Cookies', 'Our signature creation. A chewy, rich chocolate cookie shell filled with a generous layer of pistachio kunafa and a molten center.', 'RM 25')">
-                <div class="menu-card-img-container">
-                    <!-- Icon -->
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                </div>
+                <!-- Restored Original Image -->
+                <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?q=80&w=600&auto=format&fit=crop" alt="Dubai Chewy Cookie" onerror="this.src='https://placehold.co/600x400/eaddcd/4a2c2a?text=Cookie'">
                 <div class="menu-card-content">
                     <h3>Dubai Chewy Cookie</h3>
                     <p class="price">RM 25</p>
@@ -612,9 +591,8 @@
             </div>
             <!-- Item 2 -->
             <div class="menu-card" onclick="openModal('Classic Chocolate Chip', 'Perfectly crisp edges with a soft, gooey center. Loaded with premium dark chocolate chunks.', 'RM 12')">
-                <div class="menu-card-img-container">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                </div>
+                <!-- Restored Original Image -->
+                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=600&auto=format&fit=crop" alt="Chocolate Chip" onerror="this.src='https://placehold.co/600x400/eaddcd/4a2c2a?text=Choc+Chip'">
                 <div class="menu-card-content">
                     <h3>Classic Choc Chip</h3>
                     <p class="price">RM 12</p>
@@ -622,9 +600,8 @@
             </div>
             <!-- Item 3 -->
             <div class="menu-card" onclick="openModal('Pistachio Pastry', 'Flaky, buttery layers filled with rich, house-made pistachio cream.', 'RM 18')">
-                <div class="menu-card-img-container">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                </div>
+                <!-- Restored Original Image -->
+                <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?q=80&w=600&auto=format&fit=crop" alt="Pistachio Pastry" onerror="this.src='https://placehold.co/600x400/eaddcd/4a2c2a?text=Pastry'">
                 <div class="menu-card-content">
                     <h3>Pistachio Pastry</h3>
                     <p class="price">RM 18</p>
@@ -661,19 +638,19 @@
         <h2 class="page-title">@as.bake_</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=600&auto=format&fit=crop" alt="Cookies" onerror="this.src='https://placehold.co/400x400/eaddcd/4a2c2a?text=Bake'">
                 <div class="gallery-overlay"><span>Freshly Baked</span></div>
             </div>
             <div class="gallery-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" alt="Pastry" onerror="this.src='https://placehold.co/400x400/eaddcd/4a2c2a?text=Pastry'">
                 <div class="gallery-overlay"><span>Morning Pastries</span></div>
             </div>
             <div class="gallery-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <img src="https://images.unsplash.com/photo-1621236378699-8597faf6a176?q=80&w=600&auto=format&fit=crop" alt="Pistachio Dessert" onerror="this.src='https://placehold.co/400x400/eaddcd/4a2c2a?text=Pistachio'">
                 <div class="gallery-overlay"><span>Pistachio Love</span></div>
             </div>
             <div class="gallery-item">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop" alt="Baking" onerror="this.src='https://placehold.co/400x400/eaddcd/4a2c2a?text=Baking'">
                 <div class="gallery-overlay"><span>Behind the Scenes</span></div>
             </div>
         </div>
