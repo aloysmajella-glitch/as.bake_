@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>as.bake_ | Premium Artisan Bakes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* CSS VARIABLES */
+        :root {
+            --bg-color: #fdfbf7;
+            --text-main: #2c2c2c;
+            --text-light: #6b6b6b;
+            --accent-brown: #4a2c2a;
+            --accent-green: #a3b18a;
+            --white: #ffffff;
+        }
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--accent-brown);
+        }
+
+        /* STICKY HEADER WRAPPER */
+        .header-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(253, 251, 247, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: var(--accent-brown);
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--accent-brown);
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .btn-order {
+            background-color: var(--accent-brown);
+            color: var(--white);
+            padding: 0.7rem 1.4rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: 2px solid var(--accent-brown);
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-order:hover {
+            background-color: transparent;
+            color: var(--accent-brown);
+        }
+
+        /* MINI DIGITALIZED BOARD (TICKER) */
+        .ticker-board {
+            background-color: var(--accent-brown);
+            color: var(--white);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--accent-green);
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: scrollTicker 25s linear infinite;
+        }
+
+        .ticker-content span {
+            margin: 0 1.5rem;
+            display: inline-block;
+        }
+
+        .ticker-content span::before {
+            content: '✦';
+            margin-right: 0.5rem;
+            color: var(--accent-green);
+        }
+
+        .ticker-board:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* PAGE CONTAINERS */
+        .page-section {
+            display: none; 
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            min-height: 80vh;
+            padding: 3rem 5%;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HOME PAGE --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            padding-top: 2rem;
+        }
+
+        .hero-content { flex: 1; }
+        
+        .hero-tagline {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--accent-brown);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 450px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Custom SVG Graphic for Hero to prevent broken images */
+        .hero-image svg {
+            width: 100%;
+            max-width: 400px;
+            filter: drop-shadow(15px 15px 0px var(--accent-green));
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image svg:hover {
+            transform: scale(1.02) rotate(-2deg);
+        }
+
+        /* --- MENU PAGE --- */
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-brown);
+            margin-bottom: 2.5rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-card-img-container {
+            width: 100%;
+            height: 220px;
+            background-color: var(--accent-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-card-img-container svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--white);
+        }
+
+        .menu-card-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .menu-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: var(--accent-green);
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* MODAL (Popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* --- OUR STORY PAGE --- */
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .story-container p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Interactive Flip Card */
+        .flip-card {
+            background-color: transparent;
+            width: 280px;
+            height: 380px;
+            perspective: 1000px;
+            margin: 2rem auto;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .flip-card-front {
+            background-color: var(--accent-green);
+            color: var(--white);
+        }
+
+        .flip-card-back {
+            background-color: var(--accent-brown);
+            color: var(--white);
+            transform: rotateY(180deg);
+        }
+
+        /* --- GALLERY PAGE --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            background-color: var(--accent-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery-item svg {
+            width: 50%;
+            height: 50%;
+            fill: var(--white);
+            opacity: 0.5;
+            transition: transform 0.5s ease, opacity 0.3s;
+        }
+
+        .gallery-item:hover svg {
+            transform: scale(1.2) rotate(10deg);
+            opacity: 0.8;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(74, 44, 42, 0.7);
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--accent-brown);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 3rem;
+        }
+
+        footer .script-font { color: var(--white); font-size: 2.2rem; display: block; margin-bottom: 0.5rem; }
+        footer p { opacity: 0.8; font-size: 0.85rem; margin-bottom: 1rem; }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--bg-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                transition: right 0.4s ease;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+
+            nav > .btn-order {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                margin: 0 auto 1.5rem auto;
+            }
+
+            .hero-image svg {
+                max-width: 250px; /* Smaller graphic on mobile */
+            }
+
+            .menu-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-section {
+                padding: 2rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <div class="header-wrapper">
+        <!-- NAVIGATION -->
+        <nav>
+            <a class="logo" onclick="navigateTo('home')">as.bake_</a>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a onclick="navigateTo('menu')" id="nav-menu">Menu</a></li>
+                <li><a onclick="navigateTo('story')" id="nav-story">Our Story</a></li>
+                <li><a onclick="navigateTo('gallery')" id="nav-gallery">Gallery</a></li>
+            </ul>
+            
+            <a class="btn-order" onclick="navigateTo('menu')">Order Now</a>
+        </nav>
+
+        <!-- MINI DIGITALIZED BOARD (TICKER) -->
+        <div class="ticker-board">
+            <div class="ticker-content">
+                <span>Simply Burnt, Simply Irresistible</span>
+                <span>Premium Ingredients, Freshly Baked</span>
+                <span>Viral Dubai Chewy Cookies Available</span>
+                <span>DM to Order on Instagram @as.bake_</span>
+                <!-- Duplicated for seamless looping -->
+                <span>Simply Burnt, Simply Irresistible</span>
+                <span>Premium Ingredients, Freshly Baked</span>
+                <span>Viral Dubai Chewy Cookies Available</span>
+                <span>DM to Order on Instagram @as.bake_</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: HOME -->
+    <section id="home" class="page-section active">
+        <div class="hero">
+            <div class="hero-content">
+                <span class="hero-tagline">Simply Burnt. Simply Irresistible.</span>
+                <h1>Artisan Bakes &<br>Premium Desserts.</h1>
+                <p>Freshly baked with premium ingredients. From our signature Dubai Chewy Cookies to delicate pastries, experience the taste of perfection.</p>
+                <button class="btn-order" onclick="navigateTo('menu')">Explore Menu</button>
+            </div>
+            <div class="hero-image">
+                <!-- Custom Vector Graphic replacing the broken image -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#fdfbf7" stroke="#a3b18a" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="40" fill="#eaddcd" />
+                    <circle cx="35" cy="40" r="5" fill="#4a2c2a" />
+                    <circle cx="65" cy="40" r="5" fill="#4a2c2a" />
+                    <circle cx="50" cy="65" r="5" fill="#4a2c2a" />
+                    <circle cx="40" cy="55" r="4" fill="#4a2c2a" />
+                    <circle cx="60" cy="55" r="4" fill="#4a2c2a" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 2: MENU -->
+    <section id="menu" class="page-section">
+        <h2 class="page-title">Our Menu</h2>
+        <div class="menu-grid">
+            <!-- Item 1 -->
+            <div class="menu-card" onclick="openModal('Dubai Chewy Cookies', 'Our signature creation. A chewy, rich chocolate cookie shell filled with a generous layer of pistachio kunafa and a molten center.', 'RM 25')">
+                <div class="menu-card-img-container">
+                    <!-- Icon -->
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                </div>
+                <div class="menu-card-content">
+                    <h3>Dubai Chewy Cookie</h3>
+                    <p class="price">RM 25</p>
+                    <span class="tag" style="background:var(--accent-green); color:white; padding:0.3rem 0.8rem; border-radius:15px; font-size:0.8rem;">Best Seller</span>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="menu-card" onclick="openModal('Classic Chocolate Chip', 'Perfectly crisp edges with a soft, gooey center. Loaded with premium dark chocolate chunks.', 'RM 12')">
+                <div class="menu-card-img-container">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                </div>
+                <div class="menu-card-content">
+                    <h3>Classic Choc Chip</h3>
+                    <p class="price">RM 12</p>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="menu-card" onclick="openModal('Pistachio Pastry', 'Flaky, buttery layers filled with rich, house-made pistachio cream.', 'RM 18')">
+                <div class="menu-card-img-container">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                </div>
+                <div class="menu-card-content">
+                    <h3>Pistachio Pastry</h3>
+                    <p class="price">RM 18</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 3: OUR STORY -->
+    <section id="story" class="page-section">
+        <h2 class="page-title">Our Story</h2>
+        <div class="story-container">
+            <p>Founded in Kota with a simple mission: to create desserts that are <strong>"Simply Burnt, Simply Irresistible."</strong> We believe that the best bakes require patience, premium ingredients, and a little bit of love.</p>
+            <p>Every cookie, pastry, and cake is crafted by hand. Click the card below to reveal our secret!</p>
+            
+            <!-- Interactive Flip Card -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <h3>The Secret Ingredient</h3>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">(Tap to flip)</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Premium Quality</h3>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">We source only the finest Belgian chocolate and authentic Middle Eastern pistachios for our Dubai Chewy Cookies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 4: GALLERY -->
+    <section id="gallery" class="page-section">
+        <h2 class="page-title">@as.bake_</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <div class="gallery-overlay"><span>Freshly Baked</span></div>
+            </div>
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <div class="gallery-overlay"><span>Morning Pastries</span></div>
+            </div>
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <div class="gallery-overlay"><span>Pistachio Love</span></div>
+            </div>
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <div class="gallery-overlay"><span>Behind the Scenes</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL POPUP -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" style="color: var(--accent-brown); margin-top: 1rem;"></h2>
+            <p id="modal-desc" style="color: var(--text-light); margin: 1rem 0;"></p>
+            <h3 id="modal-price" style="color: var(--accent-green); margin-bottom: 1.5rem;"></h3>
+            <button class="btn-order" style="width: 100%;" onclick="alert('Redirecting to Instagram DM to order...')">Order via DM</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="script-font">as.bake_</span>
+        <p>Premium ingredients, freshly baked.<br>Based in Kota. DM to order.</p>
+        <p>&copy; 2024 as.bake_. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        function navigateTo(pageId) {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+
+            const activeLink = document.getElementById('nav-' + pageId);
+            if (activeLink) activeLink.classList.add('active');
+
+            document.getElementById('navLinks').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function openModal(title, desc, price) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-price').innerText = price;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) closeModal();
+        }
+
+        window.onload = function() {
+            navigateTo('home');
+        }
+    </script>
+</body>
+</html>
